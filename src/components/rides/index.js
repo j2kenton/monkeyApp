@@ -9,6 +9,13 @@ const Rides = ({ ...props }) => {
     props.onChange(index);
   };
 
+
+  let state = {
+    selection: {
+      id: 999
+    }
+  };
+
   const renderRideItems = (props) => {
 
     let list = props.data;

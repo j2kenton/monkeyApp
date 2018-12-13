@@ -17,7 +17,8 @@ class MovieSlider extends Component {
     this.state = {
       isLoading: false,
       error: null,
-      position: 0,
+      selection: 0,
+      pin: "",
       data: []
     };
   }
@@ -43,9 +44,16 @@ class MovieSlider extends Component {
     this.getData();
   }
 
-  positionCallback = (newPosition) => {
+  selectionCallback = (newSelection) => {
     this.setState({
-      position: newPosition,
+      selection: newSelection,
+      timestamp: Date.now()
+    });
+  };
+
+  submissionCallback = (pin) => {
+    this.setState({
+      pin: pin,
       timestamp: Date.now()
     });
   };
@@ -58,14 +66,14 @@ class MovieSlider extends Component {
           <div>Instructions</div>
           <PinSection
             data={this.state.data}
-            index={this.state.position}
-            onChange={this.positionCallback}
+            index={this.state.pin}
+            onChange={this.submissionCallback}
             timestamp={this.state.timestamp}
           />
           <Rides
             data={this.state.data}
-            index={this.state.position}
-            onChange={this.positionCallback}
+            index={this.state.selection}
+            onChange={this.selectionCallback}
           />
         </div>
       )
