@@ -4,8 +4,10 @@ import NavBar from './components/navBar';
 import './App.css';
 import axios from 'axios';
 
-const API = "./";
-const DEFAULT_QUERY = "moviesList.json";
+const API = "http://fast-rider.herokuapp.com/api/v1/";
+const DEFAULT_QUERY = "rides";
+const TOKEN_BIT = "?token=";
+const TOKEN = "2313ffa865947d1909fe39933259051c29a9ef0740";
 
 class MovieSlider extends Component {
 
@@ -21,7 +23,8 @@ class MovieSlider extends Component {
 
   getData = async () => {
     try {
-      const response = await axios.get(API + DEFAULT_QUERY);
+      const url = API + DEFAULT_QUERY + TOKEN_BIT + TOKEN;
+      const response = await axios.get(url);
       this.setState({
         data: response.data,
         isLoading: false
