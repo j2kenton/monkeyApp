@@ -9,7 +9,7 @@ const Rides = ({ ...props }) => {
     props.onChange(index);
   };
 
-  const renderNavItems = (props) => {
+  const renderRideItems = (props) => {
 
     let list = props.data;
     list.forEach(function(item, index){
@@ -22,11 +22,11 @@ const Rides = ({ ...props }) => {
 
       const isActive = value.index === props.index;
       let className = (isActive) ? "active" : "inactive";
-      className += " navItem";
+      className += " rideItem";
 
       return (
         <div key={arrayIndex} className={className} onClick={() => setIndex(value.index)} >
-          <span className="navText">{value.name}</span>
+          <span className="rideText">{value.name}</span>
         </div>
       )
 
@@ -40,16 +40,16 @@ const Rides = ({ ...props }) => {
   const shiftHalfItemWidth = (itemWidth / 2);
   // shift to correct position, so that active item is centered
   const shiftForEachItem = itemWidth * props.index;
-  const navShift = shiftForEachItem + windowWidth + shiftHalfItemWidth;
+  const rideShift = shiftForEachItem + windowWidth + shiftHalfItemWidth;
 
-  const navStyles = {
-    transform: `translateX(-${navShift}px)`,
+  const rideStyles = {
+    // transform: `translateX(-${rideShift}px)`,
   };
 
   return (
-    <nav style={navStyles} {...props} >
-      { renderNavItems(props) }
-    </nav>
+    <div style={rideStyles} {...props} >
+      { renderRideItems(props) }
+    </div>
   );
 };
 
