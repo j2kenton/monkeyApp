@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Carousel from './components/carousel';
+// import Carousel from './components/carousel';
 import NavBar from './components/navBar';
 import './App.css';
 import axios from 'axios';
@@ -53,12 +53,9 @@ class MovieSlider extends Component {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
       return (
         <div>
-          <Carousel
-            data={this.state.data}
-            index={this.state.position}
-            onChange={this.positionCallback}
-            timestamp={this.state.timestamp}
-          />
+          <h1>The Jungle Fast Rider Service</h1>
+          <div>Instructions</div>
+          <div>Input Pin</div>
           <NavBar
             data={this.state.data}
             index={this.state.position}
