@@ -52,9 +52,12 @@ const Carousel = ({ ...props }) => {
 
   return (
     <div {...props} className="carousel" >
-      {
-        renderSlides(props)
-      }
+      <form className="form-inline">
+        <div className="form-group mx-sm-3 mb-2">
+          <input type="text" className="form-control" id="inputPin" placeholder="Pin" />
+        </div>
+        <button type="submit" className="btn btn-primary mb-2">SUBMIT</button>
+      </form>
     </div>
   );
 };

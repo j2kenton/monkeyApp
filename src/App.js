@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import Carousel from './components/carousel';
+import Carousel from './components/carousel';
 import Rides from './components/rides';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
 const API = "http://fast-rider.herokuapp.com/api/v1/";
@@ -55,7 +56,12 @@ class MovieSlider extends Component {
         <div>
           <h1>The Jungle Fast Rider Service</h1>
           <div>Instructions</div>
-          <div>Input Pin</div>
+          <Carousel
+            data={this.state.data}
+            index={this.state.position}
+            onChange={this.positionCallback}
+            timestamp={this.state.timestamp}
+          />
           <Rides
             data={this.state.data}
             index={this.state.position}
