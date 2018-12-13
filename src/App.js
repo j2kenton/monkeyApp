@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Carousel from './components/carousel';
+import PinSection from './components/pinSection';
 import Rides from './components/rides';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -56,7 +56,7 @@ class MovieSlider extends Component {
         <div>
           <h1>The Jungle Fast Rider Service</h1>
           <div>Instructions</div>
-          <Carousel
+          <PinSection
             data={this.state.data}
             index={this.state.position}
             onChange={this.positionCallback}

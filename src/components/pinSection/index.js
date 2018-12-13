@@ -1,11 +1,11 @@
 import React from 'react';
-import carousel from './../../hocs/carousel';
+import pinSection from './../../hocs/pinSection';
 import Slide from './../slide';
 
 const SCROLL_INTERVAL = 10000;
 const SCROLL_INCREMENT = 1;
 
-const Carousel = ({ ...props }) => {
+const PinSection = ({ ...props }) => {
 
   const setIndex = (index) => {
     props.onChange(index);
@@ -51,7 +51,7 @@ const Carousel = ({ ...props }) => {
   };
 
   return (
-    <div {...props} className="carousel" >
+    <div {...props} className="pinSection" >
       <form className="form-inline">
         <div className="form-group mx-sm-3 mb-2">
           <input type="text" className="form-control" id="inputPin" placeholder="Pin" />
@@ -62,7 +62,7 @@ const Carousel = ({ ...props }) => {
   );
 };
 
-Carousel.contextTypes = {
+PinSection.contextTypes = {
 };
 
-export default carousel(Carousel);
+export default pinSection(PinSection);
