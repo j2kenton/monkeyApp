@@ -1,9 +1,9 @@
 import React from 'react';
-import navBar from './../../hocs/navBar';
+import rides from './../../hocs/rides';
 
 const NUMBER_OF_ITEMS = 5;
 
-const NavBar = ({ ...props }) => {
+const Rides = ({ ...props }) => {
 
   const setIndex = (index) => {
     props.onChange(index);
@@ -53,7 +53,7 @@ const NavBar = ({ ...props }) => {
   );
 };
 
-NavBar.contextTypes = {
+Rides.contextTypes = {
 };
 
-export default navBar(NavBar);
+export default rides(Rides);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-export default function navBar(WrappedComponent) {
+export default function rides(WrappedComponent) {
   return class extends Component {
 
-    static displayName = `NavBar(${WrappedComponent.name})`;
+    static displayName = `Rides(${WrappedComponent.name})`;
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
       const isIndexValid = Number.isInteger(nextProps.index) && (nextProps.index > -1) && (nextProps.index < this.props.data.length);
