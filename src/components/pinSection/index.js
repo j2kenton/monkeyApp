@@ -2,9 +2,6 @@ import React from 'react';
 import pinSection from './../../hocs/pinSection';
 // import Slide from './../slide';
 
-// const SCROLL_INTERVAL = 10000;
-// const SCROLL_INCREMENT = 1;
-
 const PinSection = ({ ...props }) => {
 
   this.submitHandler = (e) => {

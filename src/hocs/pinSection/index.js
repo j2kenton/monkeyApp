@@ -12,12 +12,6 @@ export default function carousel(WrappedComponent) {
       const isPinChanged = (this.props.pin !== nextProps.pin);
       return isPinValid && isPinChanged;
     }
-    //
-    // componentWillMount(){
-    //   this.setState({
-    //     pin: this.props.pin
-    //   });
-    // }
 
     render() {
       return (
