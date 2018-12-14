@@ -26,6 +26,7 @@ class JungleTicketApp extends Component {
       selection: -1,
       pin: "",
       reservation: {},
+      userReservations: {},
       data: []
     };
   }
@@ -43,6 +44,29 @@ class JungleTicketApp extends Component {
         error,
         isLoading: false
       });
+    }
+  };
+
+  storeReservations = (rides, userReservations, pin, selection) => {
+    if (!userReservations){
+      userReservations = {};
+    }
+    const chosenRide = rides.filter(ride => ride.id === selection);
+    userReservations[pin] = chosenRide[0].return_time;
+    this.setState({
+      userReservations: userReservations
+    });
+    localStorage.setItem("userReservations", JSON.stringify(userReservations));
+  };
+
+  loadReservations = () => {
+    try {
+      const userReservations = JSON.parse(localStorage.getItem("userReservations"));
+      this.setState({
+        userReservations: userReservations
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -74,6 +98,7 @@ class JungleTicketApp extends Component {
     this.setState({ isLoading: true });
     this.loadPin();
     this.getData();
+    this.loadReservations();
   }
 
   storePin = (pin) => {
@@ -163,6 +188,7 @@ class JungleTicketApp extends Component {
       return;
     }
     this.storePin(this.state.pin);
+    this.storeReservations(this.state.data, this.state.userReservations, this.state.pin, this.state.selection);
     this.bookRide(this.state.pin, this.state.selection, TOKEN)
       .catch(error => console.log(error));
   };
