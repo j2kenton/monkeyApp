@@ -17,3 +17,7 @@ html, body, #root {
   overflow: hidden;
   white-space: nowrap;
 }
+
+.active {
+  color: yellow;
+}

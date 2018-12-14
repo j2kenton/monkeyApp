@@ -1,35 +1,23 @@
 import React from 'react';
 import rides from './../../hocs/rides';
 
-const NUMBER_OF_ITEMS = 5;
-
 const Rides = ({ ...props }) => {
 
   const setIndex = (index) => {
     props.onChange(index);
   };
 
-
   let state = {
-    selection: {
-      id: 999
-    }
+    selection: 11
   };
 
   const renderRideItems = (props) => {
 
-    let list = props.data;
-    list.forEach(function(item, index){
-      item.index = index;
-    });
+    return props.data.map((value, arrayIndex) => {
 
-    let listWithDuplicates = list.concat(list, list);
-
-    return listWithDuplicates.map((value, arrayIndex) => {
-
-      const isActive = value.index === props.index;
-      let className = (isActive) ? "active" : "inactive";
-      className += " rideItem";
+      const isActive = value.id === state.selection;
+      const activeClassname = (isActive) ? "active" : "inactive";
+      const className = `rideItem ${activeClassname}`;
 
       return (
         <div key={arrayIndex} className={className} onClick={() => setIndex(value.index)} >
@@ -39,15 +27,6 @@ const Rides = ({ ...props }) => {
 
     })
   };
-
-  // need to shift to central set of elements (so we have plenty of items on each side of us at all times)
-  const windowWidth = window.innerWidth;
-  const itemWidth = windowWidth / NUMBER_OF_ITEMS;
-  // center by accounting for width of the (active and centered) item
-  const shiftHalfItemWidth = (itemWidth / 2);
-  // shift to correct position, so that active item is centered
-  const shiftForEachItem = itemWidth * props.index;
-  const rideShift = shiftForEachItem + windowWidth + shiftHalfItemWidth;
 
   const rideStyles = {
     // transform: `translateX(-${rideShift}px)`,
