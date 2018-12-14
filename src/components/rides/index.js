@@ -13,7 +13,7 @@ const Rides = ({ ...props }) => {
 
       const isActive = value.id === props.selection;
       const activeClassname = (isActive) ? "active" : "inactive";
-      const className = `rideItem ${activeClassname}`;
+      const className = `col-sm-6 col-md-3 ${activeClassname}`;
 
       return (
         <div key={arrayIndex} className={className} onClick={() => setId(value.id)} >
@@ -35,8 +35,10 @@ const Rides = ({ ...props }) => {
   };
 
   return (
-    <div style={rideStyles} {...props} >
-      { renderRideItems(props) }
+    <div className="container">
+      <div className="row">
+        { renderRideItems(props) }
+      </div>
     </div>
   );
 };
