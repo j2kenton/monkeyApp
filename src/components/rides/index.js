@@ -3,24 +3,20 @@ import rides from './../../hocs/rides';
 
 const Rides = ({ ...props }) => {
 
-  const setIndex = (index) => {
-    props.onChange(index);
-  };
-
-  let state = {
-    selection: 11
+  const setId = (id) => {
+    props.onChange(id);
   };
 
   const renderRideItems = (props) => {
 
     return props.data.map((value, arrayIndex) => {
 
-      const isActive = value.id === state.selection;
+      const isActive = value.id === props.selection;
       const activeClassname = (isActive) ? "active" : "inactive";
       const className = `rideItem ${activeClassname}`;
 
       return (
-        <div key={arrayIndex} className={className} onClick={() => setIndex(value.index)} >
+        <div key={arrayIndex} className={className} onClick={() => setId(value.id)} >
           <span className="rideText">{value.name}</span>
         </div>
       )

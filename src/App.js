@@ -97,7 +97,7 @@ class MovieSlider extends Component {
     //   pin: pin,
     //   timestamp: Date.now()
     // });
-    this.bookRide(pin, 2, TOKEN);
+    this.bookRide(pin, this.state.selection, TOKEN);
   };
 
   render() {
@@ -115,7 +115,7 @@ class MovieSlider extends Component {
             />
             <Rides
               data={this.state.data}
-              index={this.state.selection}
+              selection={this.state.selection}
               onChange={this.selectionCallback}
             />
           </div>
