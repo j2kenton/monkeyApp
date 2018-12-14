@@ -7,11 +7,17 @@ export default function carousel(WrappedComponent) {
 
     static displayName = `Carousel(${WrappedComponent.name})`;
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-      const isIndexValid = Number.isInteger(nextProps.index) && (nextProps.index > -1) && (nextProps.index < this.props.data.length);
-      const isIndexChanged = (this.props.index !== nextProps.index);
-      return isIndexValid && isIndexChanged;
-    }
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //   const isIndexValid = Number.isInteger(nextProps.index) && (nextProps.index > -1) && (nextProps.index < this.props.data.length);
+    //   const isIndexChanged = (this.props.index !== nextProps.index);
+    //   return isIndexValid && isIndexChanged;
+    // }
+    //
+    // componentWillMount(){
+    //   this.setState({
+    //     pin: this.props.pin
+    //   });
+    // }
 
     render() {
       return (
