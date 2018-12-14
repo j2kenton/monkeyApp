@@ -1,7 +1,7 @@
 import React from 'react';
 import slide from './../../hocs/slide';
 
-import DetailsSection from './../detailsSection';
+import DetailsSection from '../reservation';
 import Arrow from './../arrow';
 
 const FULL_SHIFT_LEFT = -100;

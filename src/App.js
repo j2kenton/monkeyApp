@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PinSection from './components/pinSection';
 import Rides from './components/rides';
+import Reservation from './components/reservation';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
@@ -183,19 +184,9 @@ class JungleTicketApp extends Component {
         )
       } else {
         return (
-          <div>
-            <h1>The Jungle Fast Rider Service</h1>
-            <div>Instructions</div>
-            <ul>
-              <li>{this.state.reservation.return_time}</li>
-              <li>{this.state.reservation.access_code}</li>
-            </ul>
-            {/*<Rides*/}
-              {/*data={this.state.data}*/}
-              {/*index={this.state.selection}*/}
-              {/*onChange={this.selectionCallback}*/}
-            {/*/>*/}
-          </div>
+            <Reservation
+              reservation={this.state.reservation}
+            />
         )
       }
 
