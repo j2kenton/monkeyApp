@@ -73,15 +73,7 @@ class MovieSlider extends Component {
         url: url,
         data: bodyFormData,
         config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-        .then(function (response) {
-          //handle success
-          console.log(response);
-        })
-        .catch(function (reason) {
-          //handle error
-          console.log(reason);
-        });
+      });
       this.setState({
         code: response.data,
         isLoading: false,
@@ -93,7 +85,7 @@ class MovieSlider extends Component {
       //   isLoading: false
       // });
       this.setState({
-        code: error,
+        code: "error",
         isLoading: false,
         isBooked: true
       });
