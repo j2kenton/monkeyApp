@@ -7,6 +7,11 @@ const Rides = ({ ...props }) => {
     props.onChange(id);
   };
 
+  const convertTime = (time) => {
+    const dateTime = new Date(time);
+    return `${dateTime.getHours()}:${dateTime.getMinutes()}`;
+  };
+
   const renderRideItems = (props) => {
 
     return props.data.map((value, arrayIndex) => {
@@ -22,7 +27,7 @@ const Rides = ({ ...props }) => {
             <li style={{"background-color": value.zone.color}}>&nbsp;</li>
             <li>{value.zone.name}</li>
             <li>{value.name}</li>
-            <li>{value.return_time}</li>
+            <li>{convertTime(value.return_time)}</li>
             <li>{value.remaining_tickets}</li>
           </ul>
         </div>
