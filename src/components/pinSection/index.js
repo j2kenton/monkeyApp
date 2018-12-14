@@ -9,7 +9,7 @@ const PinSection = ({ ...props }) => {
 
   this.submitHandler = (e) => {
     e.preventDefault();
-    // props.onChange(props.pin);
+    props.submissionHandler();
   };
 
   this.pinChangeHandler = (e) => {

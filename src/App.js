@@ -99,12 +99,8 @@ class MovieSlider extends Component {
     }
   };
 
-  submissionCallback = (pin) => {
-    // this.setState({
-    //   pin: pin,
-    //   timestamp: Date.now()
-    // });
-    this.bookRide(pin, this.state.selection, TOKEN);
+  submissionCallback = () => {
+    this.bookRide(this.state.pin, this.state.selection, TOKEN);
   };
 
   render() {
