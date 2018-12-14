@@ -7,8 +7,10 @@ import axios from 'axios';
 
 const API = "http://fast-rider.herokuapp.com/api/v1/";
 const DEFAULT_QUERY = "rides";
+const TICKETS_QUERY = "tickets";
 const TOKEN_BIT = "?token=";
 const TOKEN = "2313ffa865947d1909fe39933259051c29a9ef0740";
+const PIN = "JN-0000-1111-AG";
 
 class MovieSlider extends Component {
 
@@ -16,9 +18,11 @@ class MovieSlider extends Component {
     super();
     this.state = {
       isLoading: false,
+      isBooked: false,
       error: null,
       selection: 0,
       pin: "",
+      code: "",
       data: []
     };
   }
@@ -51,32 +55,94 @@ class MovieSlider extends Component {
     });
   };
 
+  // getCode = (pin, token) => {
+  //   return getCode(pin, TOKEN);
+  // };
+
+  bookRide = async (pin, ride_id, token) => {
+    try {
+
+      const bodyFormData = new FormData();
+      bodyFormData.set('pin', pin);
+      bodyFormData.set('ride_id', ride_id);
+      bodyFormData.set('token', token);
+
+      const url = API + TICKETS_QUERY;
+      const response = await axios({
+        method: 'post',
+        url: url,
+        data: bodyFormData,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+      })
+        .then(function (response) {
+          //handle success
+          console.log(response);
+        })
+        .catch(function (reason) {
+          //handle error
+          console.log(reason);
+        });
+      this.setState({
+        code: response.data,
+        isLoading: false,
+        isBooked: true
+      });
+    } catch (error) {
+      // this.setState({
+      //   error,
+      //   isLoading: false
+      // });
+      this.setState({
+        code: error,
+        isLoading: false,
+        isBooked: true
+      });
+    }
+  };
+
   submissionCallback = (pin) => {
-    this.setState({
-      pin: pin,
-      timestamp: Date.now()
-    });
+    // this.setState({
+    //   pin: pin,
+    //   timestamp: Date.now()
+    // });
+    this.bookRide(pin, 2, TOKEN);
   };
 
   render() {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
-      return (
-        <div>
-          <h1>The Jungle Fast Rider Service</h1>
-          <div>Instructions</div>
-          <PinSection
-            data={this.state.data}
-            index={this.state.pin}
-            onChange={this.submissionCallback}
-            timestamp={this.state.timestamp}
-          />
-          <Rides
-            data={this.state.data}
-            index={this.state.selection}
-            onChange={this.selectionCallback}
-          />
-        </div>
-      )
+      if (!this.state.isBooked){
+        return (
+          <div>
+            <h1>The Jungle Fast Rider Service</h1>
+            <div>Instructions</div>
+            <PinSection
+              data={this.state.data}
+              index={this.state.pin}
+              onChange={this.submissionCallback}
+              timestamp={this.state.timestamp}
+            />
+            <Rides
+              data={this.state.data}
+              index={this.state.selection}
+              onChange={this.selectionCallback}
+            />
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            <h1>The Jungle Fast Rider Service</h1>
+            <div>Instructions</div>
+            <div>{this.state.code}</div>
+            {/*<Rides*/}
+              {/*data={this.state.data}*/}
+              {/*index={this.state.selection}*/}
+              {/*onChange={this.selectionCallback}*/}
+            {/*/>*/}
+          </div>
+        )
+      }
+
     } else {
       return null;
     }
