@@ -24,7 +24,7 @@ class JungleTicketApp extends Component {
       error: null,
       selection: -1,
       pin: "",
-      code: "",
+      reservation: {},
       data: []
     };
   }
@@ -60,7 +60,7 @@ class JungleTicketApp extends Component {
         config: { headers: {'Content-Type': 'multipart/form-data' }}
       });
       this.setState({
-        code: response.data.access_code,
+        reservation: response.data,
         isLoading: false,
         isBooked: true
       });
@@ -186,7 +186,10 @@ class JungleTicketApp extends Component {
           <div>
             <h1>The Jungle Fast Rider Service</h1>
             <div>Instructions</div>
-            <div>{this.state.code}</div>
+            <ul>
+              <li>{this.state.reservation.return_time}</li>
+              <li>{this.state.reservation.access_code}</li>
+            </ul>
             {/*<Rides*/}
               {/*data={this.state.data}*/}
               {/*index={this.state.selection}*/}
