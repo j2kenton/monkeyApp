@@ -57,19 +57,12 @@ class JungleTicketApp extends Component {
         config: { headers: {'Content-Type': 'multipart/form-data' }}
       });
       this.setState({
-        code: response.data,
+        code: response.data.access_code,
         isLoading: false,
         isBooked: true
       });
     } catch (error) {
-      this.setState({
-        isLoading: false
-      });
-      this.setState({
-        code: "",
-        isLoading: false,
-        isBooked: true
-      });
+      throw new Error(error);
     }
   };
 
@@ -119,7 +112,8 @@ class JungleTicketApp extends Component {
       return;
     }
     this.storePin(this.state.pin);
-    this.bookRide(this.state.pin, this.state.selection, TOKEN);
+    this.bookRide(this.state.pin, this.state.selection, TOKEN)
+      .catch(error => console.log(error));
   };
 
   render() {
