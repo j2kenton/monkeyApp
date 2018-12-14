@@ -10,7 +10,8 @@ export default function carousel(WrappedComponent) {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
       const isPinValid = (typeof nextProps.pin === "string");
       const isPinChanged = (this.props.pin !== nextProps.pin);
-      return isPinValid && isPinChanged;
+      const isValidChanged = (this.props.isInputValid !== nextProps.isInputValid);
+      return isPinValid && (isPinChanged || isValidChanged);
     }
 
     render() {

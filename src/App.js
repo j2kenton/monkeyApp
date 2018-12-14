@@ -145,10 +145,12 @@ class JungleTicketApp extends Component {
   isPinFormatValid = (pin) => {
     const isNotEmpty = pin.trim() !== "";
     const regexMatches = pin.match(PIN_REGEX);
-    const isMatchingRegex = regexMatches !== null;
+    if (!regexMatches){
+      return false;
+    }
     const numbersAsCharacters = this.calculateLetterFromSequence(regexMatches[1]) + this.calculateLetterFromSequence(regexMatches[2]);
     const isSuffixValid = numbersAsCharacters === regexMatches[3];
-    return isNotEmpty && isMatchingRegex && isSuffixValid;
+    return isNotEmpty && isSuffixValid;
   };
 
   isTimeValid = () => {
@@ -210,6 +212,7 @@ class JungleTicketApp extends Component {
   render() {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
       if (!this.state.isBooked){
+        const isInputValid = this.isInputValid();
         return (
           <div>
             <h1>The Jungle Fast Rider Service</h1>
@@ -220,6 +223,7 @@ class JungleTicketApp extends Component {
               onChange={this.pinChangeCallback}
               submissionHandler={this.submissionCallback}
               timestamp={this.state.timestamp}
+              isInputValid={isInputValid}
             />
             <Rides
               data={this.state.data}

@@ -31,6 +31,7 @@ const PinSection = ({ ...props }) => {
           type="submit"
           className="btn btn-primary mb-2"
           onClick={this.submitHandler}
+          disabled={!props.isInputValid}
         >SUBMIT</button>
       </form>
     </div>
