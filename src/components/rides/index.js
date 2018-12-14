@@ -13,12 +13,13 @@ const Rides = ({ ...props }) => {
 
       const isActive = value.id === props.selection;
       const activeClassname = (isActive) ? "active" : "inactive";
-      const className = `col-sm-6 col-md-3 ${activeClassname}`;
+      const className = `ridePane col-sm-6 col-md-3 ${activeClassname}`;
+      const styling =  (isActive) ? {"background-color": value.zone.color} : {};
 
       return (
-        <div key={arrayIndex} className={className} onClick={() => setId(value.id)} >
+        <div key={arrayIndex} className={className} style={styling} onClick={() => setId(value.id)} >
           <ul>
-            <li>{value.zone.color}</li>
+            <li style={{"background-color": value.zone.color}}>&nbsp;</li>
             <li>{value.zone.name}</li>
             <li>{value.name}</li>
             <li>{value.return_time}</li>
@@ -35,10 +36,8 @@ const Rides = ({ ...props }) => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        { renderRideItems(props) }
-      </div>
+    <div className="row" style={rideStyles} {...props} >
+      { renderRideItems(props) }
     </div>
   );
 };

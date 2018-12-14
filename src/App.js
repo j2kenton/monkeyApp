@@ -214,22 +214,22 @@ class JungleTicketApp extends Component {
       if (!this.state.isBooked){
         const isInputValid = this.isInputValid();
         return (
-          <div>
-            <h1>The Jungle Fast Rider Service</h1>
-            <div>Instructions</div>
-            <PinSection
-              data={this.state.data}
-              pin={this.state.pin}
-              onChange={this.pinChangeCallback}
-              submissionHandler={this.submissionCallback}
-              timestamp={this.state.timestamp}
-              isInputValid={isInputValid}
-            />
-            <Rides
-              data={this.state.data}
-              selection={this.state.selection}
-              onChange={this.selectionCallback}
-            />
+          <div className="container">
+              <h1>The Jungle Fast Rider Service</h1>
+              <div className="row">Instructions</div>
+              <PinSection
+                data={this.state.data}
+                pin={this.state.pin}
+                onChange={this.pinChangeCallback}
+                submissionHandler={this.submissionCallback}
+                timestamp={this.state.timestamp}
+                isInputValid={isInputValid}
+              />
+              <Rides
+                data={this.state.data}
+                selection={this.state.selection}
+                onChange={this.selectionCallback}
+              />
           </div>
         )
       } else {
@@ -239,12 +239,10 @@ class JungleTicketApp extends Component {
             />
         )
       }
-
     } else {
       return null;
     }
   }
-
 }
 
 export default function App() {
