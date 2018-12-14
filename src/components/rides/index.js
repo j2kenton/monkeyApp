@@ -17,7 +17,13 @@ const Rides = ({ ...props }) => {
 
       return (
         <div key={arrayIndex} className={className} onClick={() => setId(value.id)} >
-          <span className="rideText">{value.name}</span>
+          <ul>
+            <li>{value.zone.color}</li>
+            <li>{value.zone.name}</li>
+            <li>{value.name}</li>
+            <li>{value.return_time}</li>
+            <li>{value.remaining_tickets}</li>
+          </ul>
         </div>
       )
 
