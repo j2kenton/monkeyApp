@@ -20,7 +20,7 @@ class JungleTicketApp extends Component {
       isBooked: false,
       error: null,
       selection: 0,
-      pin: "JN-0000-1111-AG",
+      pin: "",
       code: "",
       data: []
     };
@@ -75,8 +75,18 @@ class JungleTicketApp extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
+    this.loadPin();
     this.getData();
   }
+
+  storePin = (pin) => {
+    localStorage.setItem("pin", pin);
+  };
+
+  loadPin = () => {
+    const pin = localStorage.getItem("pin");
+    this.setState({ pin: pin });
+  };
 
   selectionCallback = (newSelection) => {
     this.setState({
@@ -93,6 +103,7 @@ class JungleTicketApp extends Component {
   };
 
   submissionCallback = () => {
+    this.storePin(this.state.pin);
     this.bookRide(this.state.pin, this.state.selection, TOKEN);
   };
 
