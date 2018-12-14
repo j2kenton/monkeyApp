@@ -130,12 +130,18 @@ class JungleTicketApp extends Component {
     return hoursNow > 9 && hoursNow < 19;
   };
 
+  isTicketAvailable = () => {
+    const rideId = this.state.selection;
+    const chosenRide = this.state.data.filter(ride => ride.id === rideId);
+    return chosenRide[0].remaining_tickets > 0;
+  };
+
   isInputValid = () => {
     const pin = this.state.pin;
     const isPinValid = (typeof pin === "string") && this.isPinFormatValid(pin);
     const rideId = this.state.selection;
     const isSelectionValid = Number.isInteger(rideId) && rideId > -1;
-    return isPinValid && isSelectionValid && this.isTimeValid();
+    return isPinValid && isSelectionValid && this.isTimeValid() && this.isTicketAvailable();
   };
 
   selectionCallback = (newSelection) => {
