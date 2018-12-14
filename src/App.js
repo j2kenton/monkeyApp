@@ -123,12 +123,18 @@ class JungleTicketApp extends Component {
     return isNotEmpty && isMatchingRegex && isSuffixValid;
   };
 
+  isTimeValid = () => {
+    const now = new Date();
+    const hoursNow = now.getHours();
+    return hoursNow > 9 && hoursNow < 19;
+  };
+
   isInputValid = () => {
     const pin = this.state.pin;
     const isPinValid = (typeof pin === "string") && this.isPinFormatValid(pin);
     const rideId = this.state.selection;
     const isSelectionValid = Number.isInteger(rideId) && rideId > -1;
-    return isPinValid && isSelectionValid;
+    return isPinValid && isSelectionValid && this.isTimeValid();
   };
 
   selectionCallback = (newSelection) => {
