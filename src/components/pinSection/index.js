@@ -7,37 +7,34 @@ import pinSection from './../../hocs/pinSection';
 
 const PinSection = ({ ...props }) => {
 
-  const setIndex = (index) => {
-    props.onChange(index);
-  };
-
-  const state = {
-    pin: "JN-0000-1111-AG"
-  };
-
   this.submitHandler = (e) => {
     e.preventDefault();
-    props.onChange(state.pin);
+    // props.onChange(props.pin);
   };
 
-  this.pinChangeHandler = (pin) => {
-    state.pin = pin;
+  this.pinChangeHandler = (e) => {
+    const newPin = e.target.value;
+    props.onChange(newPin);
   };
 
   return (
-    <div {...props} className="pinSection" >
+    <div className="pinSection" >
       <form className="form-inline">
         <div className="form-group mx-sm-3 mb-2">
           <input
             type="text"
-            value={state.pin}
-            onChange={e => this.pinChangeHandler(e.target.value)}
+            value={props.pin}
+            onChange={this.pinChangeHandler}
             className="form-control"
             id="inputPin"
             placeholder="Pin"
           />
         </div>
-        <button type="submit" className="btn btn-primary mb-2" onClick={this.submitHandler}>SUBMIT</button>
+        <button
+          type="submit"
+          className="btn btn-primary mb-2"
+          onClick={this.submitHandler}
+        >SUBMIT</button>
       </form>
     </div>
   );

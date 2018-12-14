@@ -55,6 +55,13 @@ class MovieSlider extends Component {
     });
   };
 
+  pinChangeCallback = (newPin) => {
+    this.setState({
+      pin: newPin,
+      timestamp: Date.now()
+    });
+  };
+
   // getCode = (pin, token) => {
   //   return getCode(pin, TOKEN);
   // };
@@ -109,8 +116,9 @@ class MovieSlider extends Component {
             <div>Instructions</div>
             <PinSection
               data={this.state.data}
-              index={this.state.pin}
-              onChange={this.submissionCallback}
+              pin={this.state.pin}
+              onChange={this.pinChangeCallback}
+              submissionHandler={this.submissionCallback}
               timestamp={this.state.timestamp}
             />
             <Rides

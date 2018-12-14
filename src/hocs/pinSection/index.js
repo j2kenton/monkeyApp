@@ -7,11 +7,11 @@ export default function carousel(WrappedComponent) {
 
     static displayName = `Carousel(${WrappedComponent.name})`;
 
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //   const isIndexValid = Number.isInteger(nextProps.index) && (nextProps.index > -1) && (nextProps.index < this.props.data.length);
-    //   const isIndexChanged = (this.props.index !== nextProps.index);
-    //   return isIndexValid && isIndexChanged;
-    // }
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+      const isPinValid = (typeof nextProps.pin === "string") && (nextProps.pin.trim() !== "");
+      const isPinChanged = (this.props.pin !== nextProps.pin);
+      return isPinValid && isPinChanged;
+    }
     //
     // componentWillMount(){
     //   this.setState({
