@@ -52,7 +52,9 @@ class JungleTicketApp extends Component {
       userReservations = {};
     }
     const chosenRide = rides.filter(ride => ride.id === selection);
-    userReservations[pin] = chosenRide[0].return_time;
+    const returnTime = chosenRide[0].return_time;
+    const timestamp = new Date(returnTime).getTime();
+    userReservations[pin] = timestamp;
     this.setState({
       userReservations: userReservations
     });
