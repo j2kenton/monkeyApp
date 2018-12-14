@@ -215,7 +215,7 @@ class JungleTicketApp extends Component {
         const isInputValid = this.isInputValid();
         return (
           <div className="container">
-              <h1>The Jungle Fast Rider Service</h1>
+              <h1>The Jungle&trade; FastRider Service</h1>
               <div className="row">Instructions</div>
               <PinSection
                 data={this.state.data}
@@ -234,9 +234,9 @@ class JungleTicketApp extends Component {
         )
       } else {
         return (
-            <Reservation
-              reservation={this.state.reservation}
-            />
+          <Reservation
+            reservation={this.state.reservation}
+          />
         )
       }
     } else {
