@@ -10,6 +10,9 @@ const DEFAULT_QUERY = "rides";
 const TICKETS_QUERY = "tickets";
 const TOKEN_BIT = "?token=";
 const TOKEN = "2313ffa865947d1909fe39933259051c29a9ef0740";
+const PIN_REGEX = /^JN-([0-9]{4})-([0-9]{4})-([A-Z]{2})$/;
+const LETTERS_IN_ALPHABET = 26;
+const OFFSET_TO_ASCII = 65;
 
 class JungleTicketApp extends Component {
 
@@ -81,8 +84,43 @@ class JungleTicketApp extends Component {
     this.setState({ pin: pin });
   };
 
+  calculateSum = (total, num) => {
+    return parseInt(total) + parseInt(num);
+  };
+
+  reduceToSingleDigit = (longNumber) => {
+    const numberString = longNumber + "";
+    const numberArray = numberString.split("");
+    let sumOfDigits = numberArray.reduce(this.calculateSum);
+    if (sumOfDigits > 9){
+      sumOfDigits = this.reduceToSingleDigit(sumOfDigits);
+    }
+    return sumOfDigits;
+  };
+
+  calculateLetterCode = (numericalSequence) => {
+    const weightedValues = [
+      this.reduceToSingleDigit(numericalSequence[0] * 1),
+      this.reduceToSingleDigit(numericalSequence[1] * 2),
+      this.reduceToSingleDigit(numericalSequence[2] * 1),
+      this.reduceToSingleDigit(numericalSequence[3] * 2),
+    ];
+    const sum = weightedValues.reduce(this.calculateSum);
+    return sum % LETTERS_IN_ALPHABET + OFFSET_TO_ASCII;
+  };
+
+  calculateLetterFromSequence = (numericalSequence) => {
+    const letterCode = this.calculateLetterCode(numericalSequence);
+    return String.fromCharCode(letterCode);
+  };
+
   isPinFormatValid = (pin) => {
-    return pin.trim() !== "";
+    const isNotEmpty = pin.trim() !== "";
+    const regexMatches = pin.match(PIN_REGEX);
+    const isMatchingRegex = regexMatches !== null;
+    const numbersAsCharacters = this.calculateLetterFromSequence(regexMatches[1]) + this.calculateLetterFromSequence(regexMatches[2]);
+    const isSuffixValid = numbersAsCharacters === regexMatches[3];
+    return isNotEmpty && isMatchingRegex && isSuffixValid;
   };
 
   isInputValid = () => {
