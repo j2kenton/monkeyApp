@@ -6,7 +6,7 @@ export default function rides(WrappedComponent) {
     static displayName = `Rides(${WrappedComponent.name})`;
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-      const isSelectionValid = Number.isInteger(nextProps.selection) && (nextProps.selection > -1) && (nextProps.selection < this.props.data.length);
+      const isSelectionValid = Number.isInteger(nextProps.selection) && (nextProps.selection > -1);
       const isSelectionChanged = (this.props.selection !== nextProps.selection);
       return isSelectionValid && isSelectionChanged;
     }
