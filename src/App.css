@@ -10,6 +10,12 @@ html, body, #root {
   color: #656565;
 }
 
+h1 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
 #wrapper {
   position: relative;
   width: 100%;
@@ -21,4 +27,9 @@ html, body, #root {
 .ridePane {
   background-color: #373737;
   color: #efefef;
+}
+
+#pinSection {
+  margin-top: 40px;
+  margin-bottom: 60px;
 }

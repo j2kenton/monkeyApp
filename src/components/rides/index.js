@@ -24,7 +24,7 @@ const Rides = ({ ...props }) => {
       return (
         <div key={arrayIndex} className={className} style={styling} onClick={() => setId(value.id)} >
           <ul>
-            <li style={{"background-color": value.zone.color}}>&nbsp;</li>
+            <li style={{"backgroundColor": value.zone.color}}>&nbsp;</li>
             <li>{value.zone.name}</li>
             <li>{value.name}</li>
             <li>{convertTime(value.return_time)}</li>

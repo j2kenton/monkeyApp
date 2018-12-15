@@ -15,7 +15,7 @@ const PinSection = ({ ...props }) => {
   };
 
   return (
-    <div className="pinSection" >
+    <div className="row" id="pinSection">
       <form className="form-inline">
         <div className="form-group mx-sm-3 mb-2">
           <input
