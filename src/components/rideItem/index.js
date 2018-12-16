@@ -25,16 +25,24 @@ const RideItem = ({ ...props }) => {
   const className = `ridePane col-sm-6 col-md-3 ${activeClassname}`;
   const styling =  (isActive) ? {"background-color": value.zone.color} : {};
 
-  const iconUri = ICONS_URI + props.rideIcon;
+  const timeIcon = ICONS_URI + "ico-03.png";
+  const ticketIcon = ICONS_URI + "ico-01.png";
+
   return (
     <div key={arrayIndex} className={className} style={styling} onClick={() => setId(value.id)} >
-      <ul>
-        <li style={{"backgroundColor": value.zone.color}}>&nbsp;</li>
-        <li>{value.zone.name}</li>
-        <li>{value.name}</li>
-        <li>{convertTime(value.return_time)}</li>
-        <li>{value.remaining_tickets}</li>
-      </ul>
+      <div style={{"backgroundColor": value.zone.color}}>&nbsp;</div>
+      <div>{value.zone.name}</div>
+      <div>{value.name}</div>
+      <div>
+        <div>
+          <i><img alt="icon" src={timeIcon} /></i>
+          {convertTime(value.return_time)}
+          </div>
+        <div>
+          <i><img alt="icon" src={ticketIcon} /></i>
+          {value.remaining_tickets}
+          </div>
+      </div>
     </div>
   );
 };
