@@ -6,6 +6,7 @@ import Reservation from './components/reservation';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
+import InfoItem from "./components/infoItem";
 
 const API = "http://fast-rider.herokuapp.com/api/v1/";
 const DEFAULT_QUERY = "rides";
@@ -238,13 +239,47 @@ class JungleTicketApp extends Component {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
       if (!this.state.isBooked){
         const inputStatus = this.checkInputValid();
+        const infoMsg = "asf";
+        const info = [
+          {
+            msg: "Enter your park ticket #PIN number, then select the desired ride while noting the stated return time",
+            icon: "ico-01.png"
+          },
+          {
+            msg: "Press 'submit' to confirm and retrieve your access code",
+            icon: "ico-02.png"
+          },
+          {
+            msg: "When the time comes, use the special FastRider line to cut out a considerable wait time",
+            icon: "ico-03.png"
+          }
+        ];
         return (
           <div className="container">
               <h1>The Jungle&trade; FastRider Service</h1>
-              <div className="row">Instructions</div>
-              <PinSection
-                data={this.state.data}
-                pin={this.state.pin}
+            <div className="row">
+              <div className="col-sm-12 col-md-4">
+                <InfoItem
+                  infoMsg={info[0].msg}
+                  infoIcon={info[0].icon}
+                />
+              </div>
+              <div className="col-sm-12 col-md-4">
+                <InfoItem
+                  infoMsg={info[1].msg}
+                  infoIcon={info[1].icon}
+                />
+              </div>
+              <div className="col-sm-12 col-md-4">
+                <InfoItem
+                  infoMsg={info[2].msg}
+                  infoIcon={info[2].icon}
+                />
+              </div>
+            </div>
+            <PinSection
+              data={this.state.data}
+              pin={this.state.pin}
                 onChange={this.pinChangeCallback}
                 submissionHandler={this.submissionCallback}
                 timestamp={this.state.timestamp}

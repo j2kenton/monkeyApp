@@ -11,9 +11,9 @@ html, body, #root {
 }
 
 h1 {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 #wrapper {
@@ -38,4 +38,9 @@ h1 {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.infoItem {
+  text-align: center;
+  white-space: normal;
 }
