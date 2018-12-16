@@ -7,15 +7,13 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import InfoItem from "./components/infoItem";
+import utils from "./utils/general";
 
 const API = "http://fast-rider.herokuapp.com/api/v1/";
 const DEFAULT_QUERY = "rides";
 const TICKETS_QUERY = "tickets";
 const TOKEN_BIT = "?token=";
 const TOKEN = "2313ffa865947d1909fe39933259051c29a9ef0740";
-const PIN_REGEX = /^JN-([0-9]{4})-([0-9]{4})-([A-Z]{2})$/;
-const LETTERS_IN_ALPHABET = 26;
-const OFFSET_TO_ASCII = 65;
 
 const INVALID_TIME_MSG = "Tickets only available between 9 a.m. and 7 p.m. Please come back later.";
 const HAS_TICKET_MSG = "Sorry. You already hold a valid ticket. You'll have to wait.";
@@ -118,59 +116,6 @@ class JungleTicketApp extends Component {
     this.setState({ pin: pin });
   };
 
-  calculateSum = (total, num) => {
-    return parseInt(total) + parseInt(num);
-  };
-
-  reduceToSingleDigit = (longNumber) => {
-    const numberString = longNumber + "";
-    const numberArray = numberString.split("");
-    let sumOfDigits = numberArray.reduce(this.calculateSum);
-    if (sumOfDigits > 9){
-      sumOfDigits = this.reduceToSingleDigit(sumOfDigits);
-    }
-    return sumOfDigits;
-  };
-
-  calculateLetterCode = (numericalSequence) => {
-    const weightedValues = [
-      this.reduceToSingleDigit(numericalSequence[0] * 1),
-      this.reduceToSingleDigit(numericalSequence[1] * 2),
-      this.reduceToSingleDigit(numericalSequence[2] * 1),
-      this.reduceToSingleDigit(numericalSequence[3] * 2),
-    ];
-    const sum = weightedValues.reduce(this.calculateSum);
-    return sum % LETTERS_IN_ALPHABET + OFFSET_TO_ASCII;
-  };
-
-  calculateLetterFromSequence = (numericalSequence) => {
-    const letterCode = this.calculateLetterCode(numericalSequence);
-    return String.fromCharCode(letterCode);
-  };
-
-  isPinFormatValid = (pin) => {
-    const isNotEmpty = pin.trim() !== "";
-    const regexMatches = pin.match(PIN_REGEX);
-    if (!regexMatches){
-      return false;
-    }
-    const numbersAsCharacters = this.calculateLetterFromSequence(regexMatches[1]) + this.calculateLetterFromSequence(regexMatches[2]);
-    const isSuffixValid = numbersAsCharacters === regexMatches[3];
-    return isNotEmpty && isSuffixValid;
-  };
-
-  isTimeValid = () => {
-    const now = new Date();
-    const hoursNow = now.getHours();
-    return hoursNow >= 9 && hoursNow < 19;
-  };
-
-  isTicketAvailable = (selection) => {
-    const rideId = selection;
-    const chosenRide = this.state.data.filter(ride => ride.id === rideId);
-    return chosenRide[0].remaining_tickets > 0;
-  };
-
   isUserWithoutTicket = (pin) => {
     const userLastTicketTime = this.state.userReservations[pin];
     if (typeof userLastTicketTime == "undefined"){ // eslint-disable-line
@@ -181,27 +126,19 @@ class JungleTicketApp extends Component {
     return timestampNow > userLastTicketTime;
   };
 
-  isPinValid = (pin) => {
-    return (typeof pin === "string") && this.isPinFormatValid(pin);
-  };
-
-  isSelectionValid = (rideId) => {
-    return Number.isInteger(rideId) && (rideId > -1) && this.isTicketAvailable(rideId);
-  };
-
   checkInputValid = () => {
     let isInputValid = true;
     let errorMsg = "";
-    if (!this.isTimeValid()){
+    if (!utils.isTimeValid()){
       isInputValid = false;
       errorMsg = INVALID_TIME_MSG;
     } else if (!this.isUserWithoutTicket(this.state.pin)){
       isInputValid = false;
       errorMsg = HAS_TICKET_MSG;
-    } else if (!this.isPinValid(this.state.pin)){
+    } else if (!utils.isPinValid(this.state.pin)){
       isInputValid = false;
       errorMsg = INVALID_PIN_MSG;
-    } else if (!this.isSelectionValid(this.state.selection)){
+    } else if (!utils.isSelectionValid(this.state.selection, this.state.data)){
       isInputValid = false;
       errorMsg = INVALID_SELECTION_MSG;
     }
@@ -209,7 +146,7 @@ class JungleTicketApp extends Component {
   };
 
   selectionCallback = (newSelection) => {
-    if (this.isTicketAvailable(newSelection)){
+    if (utils.isTicketAvailable(newSelection, this.state.data)){
       this.setState({
         selection: newSelection,
         timestamp: Date.now()
@@ -239,7 +176,6 @@ class JungleTicketApp extends Component {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
       if (!this.state.isBooked){
         const inputStatus = this.checkInputValid();
-        const infoMsg = "asf";
         const info = [
           {
             msg: "Enter your park ticket #PIN number, then select the desired ride while noting the stated return time",
