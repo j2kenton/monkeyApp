@@ -9,7 +9,10 @@ const Rides = ({ ...props }) => {
 
   const convertTime = (time) => {
     const dateTime = new Date(time);
-    return `${dateTime.getHours()}:${dateTime.getMinutes()}`;
+    const hours = dateTime.getHours();
+    let minutesString = dateTime.getMinutes() + "";
+    minutesString = minutesString.padStart(2, "0"); // pad single digits with leading zero
+    return `${hours}:${minutesString}`;
   };
 
   const renderRideItems = (props) => {
@@ -36,12 +39,8 @@ const Rides = ({ ...props }) => {
     })
   };
 
-  const rideStyles = {
-    // transform: `translateX(-${rideShift}px)`,
-  };
-
   return (
-    <div className="row" style={rideStyles} {...props} >
+    <div className="row" {...props} >
       { renderRideItems(props) }
     </div>
   );
