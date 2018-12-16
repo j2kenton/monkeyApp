@@ -17,22 +17,24 @@ const PinSection = ({ ...props }) => {
   return (
     <div className="row" id="pinSection">
       <form className="form-inline">
-        <div className="form-group mx-sm-3 mb-2">
+        <div className="form-group">
           <input
             type="text"
             value={props.pin}
             onChange={this.pinChangeHandler}
             className="form-control"
             id="inputPin"
-            placeholder="Pin"
+            placeholder="#PIN"
           />
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary mb-2"
-          onClick={this.submitHandler}
-          disabled={!props.isInputValid}
-        >SUBMIT</button>
+        <div>
+          <button
+            type="submit"
+            className="btn"
+            onClick={this.submitHandler}
+            disabled={!props.isInputValid}
+          >SUBMIT</button>
+        </div>
       </form>
     </div>
   );

@@ -34,6 +34,26 @@ h1 {
   padding-bottom: 20px;
 }
 
+#pinSection form {
+  width: 100%;
+}
+
+#pinSection form .form-group {
+  width: calc(100% - 10vw);
+}
+
+#pinSection form .form-group input {
+  width: 100%;
+  border-radius: 0;
+}
+
+#pinSection form button {
+  width: 10vw;
+  border-radius: 0;
+  background-color: #4c4c4b;
+  color: #ffffff;
+}
+
 #errorSection {
   padding-top: 20px;
   padding-bottom: 20px;
