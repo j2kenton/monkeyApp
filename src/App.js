@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PinSection from './components/pinSection';
+import ErrorSection from './components/errorSection';
 import Rides from './components/rides';
 import Reservation from './components/reservation';
 import './App.css';
@@ -15,6 +16,11 @@ const PIN_REGEX = /^JN-([0-9]{4})-([0-9]{4})-([A-Z]{2})$/;
 const LETTERS_IN_ALPHABET = 26;
 const OFFSET_TO_ASCII = 65;
 
+const INVALID_TIME_MSG = "Tickets only available between 9 a.m. and 7 p.m. Please come back later.";
+const HAS_TICKET_MSG = "Sorry. You already hold a valid ticket. You'll have to wait.";
+const INVALID_PIN_MSG = "Please check the pin and try again.";
+const INVALID_SELECTION_MSG = "Please select a ride.";
+
 class JungleTicketApp extends Component {
 
   constructor() {
@@ -22,7 +28,6 @@ class JungleTicketApp extends Component {
     this.state = {
       isLoading: false,
       isBooked: false,
-      error: null,
       selection: -1,
       pin: "",
       reservation: {},
@@ -167,7 +172,7 @@ class JungleTicketApp extends Component {
 
   isUserWithoutTicket = (pin) => {
     const userLastTicketTime = this.state.userReservations[pin];
-    if (typeof userLastTicketTime == "undefined"){
+    if (typeof userLastTicketTime == "undefined"){ // eslint-disable-line
       return true;
     }
     const now = new Date();
@@ -175,12 +180,31 @@ class JungleTicketApp extends Component {
     return timestampNow > userLastTicketTime;
   };
 
-  isInputValid = () => {
-    const pin = this.state.pin;
-    const isPinValid = (typeof pin === "string") && this.isPinFormatValid(pin);
-    const rideId = this.state.selection;
-    const isSelectionValid = Number.isInteger(rideId) && rideId > -1;
-    return isPinValid && isSelectionValid && this.isTimeValid() && this.isTicketAvailable(rideId) && this.isUserWithoutTicket(pin);
+  isPinValid = (pin) => {
+    return (typeof pin === "string") && this.isPinFormatValid(pin);
+  };
+
+  isSelectionValid = (rideId) => {
+    return Number.isInteger(rideId) && (rideId > -1) && this.isTicketAvailable(rideId);
+  };
+
+  checkInputValid = () => {
+    let isInputValid = true;
+    let errorMsg = "";
+    if (!this.isTimeValid()){
+      isInputValid = false;
+      errorMsg = INVALID_TIME_MSG;
+    } else if (!this.isUserWithoutTicket(this.state.pin)){
+      isInputValid = false;
+      errorMsg = HAS_TICKET_MSG;
+    } else if (!this.isPinValid(this.state.pin)){
+      isInputValid = false;
+      errorMsg = INVALID_PIN_MSG;
+    } else if (!this.isSelectionValid(this.state.selection)){
+      isInputValid = false;
+      errorMsg = INVALID_SELECTION_MSG;
+    }
+    return {isInputValid, errorMsg};
   };
 
   selectionCallback = (newSelection) => {
@@ -200,7 +224,8 @@ class JungleTicketApp extends Component {
   };
 
   submissionCallback = () => {
-    if (!this.isInputValid()){
+    const inputStatus = this.checkInputValid();
+    if (!inputStatus.isInputValid){
       return;
     }
     this.storePin(this.state.pin);
@@ -212,7 +237,7 @@ class JungleTicketApp extends Component {
   render() {
     if (!this.state.isLoading && (typeof this.state.data === "object") && (this.state.data.length > 0)) {
       if (!this.state.isBooked){
-        const isInputValid = this.isInputValid();
+        const inputStatus = this.checkInputValid();
         return (
           <div className="container">
               <h1>The Jungle&trade; FastRider Service</h1>
@@ -223,7 +248,10 @@ class JungleTicketApp extends Component {
                 onChange={this.pinChangeCallback}
                 submissionHandler={this.submissionCallback}
                 timestamp={this.state.timestamp}
-                isInputValid={isInputValid}
+                isInputValid={inputStatus.isInputValid}
+              />
+              <ErrorSection
+                errorMsg={inputStatus.errorMsg}
               />
               <Rides
                 data={this.state.data}
