@@ -1,6 +1,7 @@
 import React from 'react';
 import reservation from '../../hocs/reservation';
 import InfoItem from "../infoItem";
+import RideItem from "../rideItem";
 
 const Reservation = ({ ...props }) => {
 
@@ -11,12 +12,14 @@ const Reservation = ({ ...props }) => {
         infoMsg="Thank you for using The Jungle&trade; FastRider ticket system - your access code is now ready!"
         infoIcon="ico-04.png"
       />
-      <ul>
-        <li>{props.reservation.ride.name}</li>
-        <li>{props.reservation.ride.zone.name}</li>
-        <li>{props.reservation.return_time}</li>
-        <li>{props.reservation.access_code}</li>
-      </ul>
+
+      <RideItem
+        value={props.reservation.ride}
+        arrayIndex={-1}
+        onChange={()=>{}}
+        selection={-1}
+      />
+
     </div>
   );
 };

@@ -22,7 +22,9 @@ const RideItem = ({ ...props }) => {
 
   const isActive = value.id === props.selection;
   const activeClassname = (isActive) ? "active" : "inactive";
-  const className = `ridePane col-sm-6 col-md-3 ${activeClassname}`;
+  const isPartOfGroup = arrayIndex > -1;
+  const colClasses = (isPartOfGroup) ? "col-sm-6 col-md-3" : "col-sm-6 col-md-4 offset-sm-3 offset-sm-4";
+  const className = `ridePane ${colClasses} ${activeClassname}`;
   const styling =  (isActive) ? {"background-color": value.zone.color} : {};
 
   const timeIcon = ICONS_URI + "ico-03.png";
