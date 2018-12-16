@@ -24,10 +24,6 @@ h1 {
   white-space: nowrap;
 }
 
-.ridePane {
-  background-color: #373737;
-  color: #efefef;
-}
 
 #pinSection {
   margin-top: 40px;
@@ -39,7 +35,7 @@ h1 {
 }
 
 #pinSection form .form-group {
-  width: calc(100% - 10vw);
+  width: calc(100% - 20vw);
 }
 
 #pinSection form .form-group input {
@@ -48,7 +44,7 @@ h1 {
 }
 
 #pinSection form button {
-  width: 10vw;
+  width: 20vw;
   border-radius: 0;
   background-color: #4c4c4b;
   color: #ffffff;
@@ -70,4 +66,48 @@ h1 {
 .infoItem {
   text-align: center;
   white-space: normal;
+}
+
+.ridePane {
+  background-color: #373737;
+  color: #efefef;
+  margin-bottom: 10px;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  padding-bottom: 10px;
+  min-height: 150px !important;
+}
+
+.ridePane .zoneColor {
+  width: 100%;
+}
+
+.ridePane .zoneName {
+  margin-top: 10px;
+  float: right;
+  color: #656565;
+}
+
+.ridePane .nameField {
+  clear: both;
+  text-align: center;
+  font-size: 200%;
+  white-space: normal;
+  margin: 30px 20px 10px;
+}
+
+.ridePane .returnTime {
+  float: left;
+  color: #656565;
+  padding-left: 10px;
+}
+
+.ridePane .remainingTickets {
+  float: right;
+  color: #656565;
+}
+
+.ridePane .icon {
+  width: 20%;
+  padding-right: 5px;
 }

@@ -32,16 +32,16 @@ const RideItem = ({ ...props }) => {
 
   return (
     <div key={arrayIndex} className={className} style={styling} onClick={() => setId(value.id)} >
-      <div style={{"backgroundColor": value.zone.color}}>&nbsp;</div>
-      <div>{value.zone.name}</div>
-      <div>{value.name}</div>
-      <div>
-        <div>
-          <i><img alt="icon" src={timeIcon} /></i>
+      <div style={{"backgroundColor": value.zone.color}} className="zoneColor">&nbsp;</div>
+      <div className="zoneName">{value.zone.name}</div>
+      <div className="nameField">{value.name}</div>
+      <div className="ticketDetails">
+        <div className="returnTime">
+          <i><img alt="icon" className="icon" src={timeIcon} /></i>
           {convertTime(value.return_time)}
           </div>
-        <div>
-          <i><img alt="icon" src={ticketIcon} /></i>
+        <div className="remainingTickets">
+          <i><img alt="icon" className="icon" src={ticketIcon} /></i>
           {value.remaining_tickets}
           </div>
       </div>
