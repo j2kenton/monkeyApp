@@ -5,8 +5,6 @@ export default function carousel(WrappedComponent) {
     static contextTypes = {
     };
 
-    static displayName = `Carousel(${WrappedComponent.name})`;
-
     shouldComponentUpdate(nextProps, nextState, nextContext) {
       const isPinValid = (typeof nextProps.pin === "string");
       const isPinChanged = (this.props.pin !== nextProps.pin);
