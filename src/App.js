@@ -161,7 +161,7 @@ class JungleTicketApp extends Component {
   isTimeValid = () => {
     const now = new Date();
     const hoursNow = now.getHours();
-    return hoursNow > 9 && hoursNow < 19;
+    return hoursNow >= 9 && hoursNow < 19;
   };
 
   isTicketAvailable = (selection) => {
